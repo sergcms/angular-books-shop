@@ -1,0 +1,83 @@
+<div class="container">
+  <div class="card card-body">
+    <h2 class="card-title text-primary">Add book: {{book.name}}</h2>
+    <form #form="ngForm" (ngSubmit)="addBook()">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text"
+               class="form-control"
+               name="name"
+               [ngClass]="{'is-valid': !bookName.invalid, 'is-invalid': bookName.touched && bookName.invalid}"
+               [(ngModel)]="book.name"
+               id="name"
+               #bookName="ngModel"
+               required
+        >
+        <div class="invalid-feedback" *ngIf="bookName.touched && bookName.invalid">
+          Name required
+        </div>
+      </div>
+     
+      <!-- / form-group -->
+      <div class="form-group">
+        <label for="description">Description</label>
+        <input type="text"
+               class="form-control"
+               name="description"
+               [ngClass]="{'is-valid': !bookDescription.invalid, 'is-invalid': bookDescription.touched && bookDescription.invalid}"
+               [(ngModel)]="book.description"
+               id="description"
+               #bookDescription="ngModel"
+               required
+        >
+        <div class="invalid-feedback" *ngIf="bookDescription.touched && bookDescription.invalid">
+          Description required
+        </div>
+      </div>
+      <!-- / form-group -->
+      <div class="form-group">
+        <label for="author">Author</label>
+        <input type="text"
+               class="form-control"
+               name="author"
+               [ngClass]="{'is-valid': !bookAuthor.invalid, 'is-invalid': bookAuthor.touched && bookAuthor.invalid}"
+               [(ngModel)]="book.author"
+               id="author"
+               #bookAuthor="ngModel"
+               required
+        >
+        <div class="invalid-feedback" *ngIf="bookAuthor.touched && bookAuthor.invalid">
+          Author required
+        </div>
+      </div>
+      <!-- / form-group -->
+      <div class="form-group">
+        <label for="price">Price</label>
+        <input type="number"
+               class="form-control"
+               [ngClass]="{'is-valid': !bookPrice.invalid, 'is-invalid': bookPrice.touched && bookPrice.invalid}"
+               name="price"
+               [(ngModel)]="book.price"
+               id="price"
+               #bookPrice="ngModel"
+               required
+        >
+        <div class="invalid-feedback" *ngIf="bookPrice.touched && bookPrice.invalid">
+          Price required
+        </div>
+      </div>     
+      <!-- / form-group -->
+      <div class="form-group" *ngFor="let link of book.links; let i = index">
+        <label for="{{link.type}}">Link: {{link.type}}</label>
+        <input type="text"
+               class="form-control"
+               name="{{book.links[i].type}}"
+               [(ngModel)]="book.links[i].link"
+               id="{{book.links[i].type}}"
+        >
+      </div>
+      <!-- / form-group -->
+      <button class="btn btn-primary" [disabled]="bookName.invalid || bookDescription.invalid || bookAuthor.invalid || bookPrice.invalid">Save</button>
+    </form>
+  </div>
+</div>
